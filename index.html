@@ -2,323 +2,249 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>PERISHABLE QUEST — Misi 8 Butcher Part 1 Sapi</title>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Butcher Sapi Quest — Misi 8 Perishable Indogrosir</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#eaf7ff;--ink:#102a43;--pink:#ff4d8d;--yellow:#ffd83d;--green:#2fbf6c;--blue:#4f72ff;--red:#ff5a67;--sh:6px 6px 0 var(--ink)}
+:root{--m:#7a0010;--br:#c4511d;--cr:#fff6ea;--ink:#2a0a0f;--bl:#1f5fbf;--ye:#ffc928;--gr:#1f9d63;--rd:#e23a4e;--sh:4px 4px 0 var(--ink)}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{margin:0;min-height:100vh;color:var(--ink);font-family:"Fredoka",Arial,sans-serif;font-weight:600;
-background:radial-gradient(circle at 16px 16px,rgba(16,42,67,.10) 2px,transparent 2.5px) 0 0/32px 32px,linear-gradient(180deg,#f6fbff,var(--bg));overflow-x:hidden}
-h1,h2,h3{font-family:"Space Grotesk",Arial,sans-serif;margin:0}
+html,body{margin:0}
+body{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:500;color:var(--ink);background:var(--m);
+background-image:radial-gradient(rgba(255,255,255,.07) 2px,transparent 2.5px);background-size:26px 26px}
 button,input,select{font:inherit;color:inherit}
-#app{max-width:940px;margin:0 auto;padding:84px 16px 40px}
-.card{background:#fff;border:4px solid var(--ink);border-radius:18px;box-shadow:var(--sh);padding:18px}
-.badge{display:inline-block;border:3px solid var(--ink);border-radius:999px;box-shadow:3px 3px 0 rgba(16,42,67,.18);padding:6px 12px;font-weight:700;font-size:.8rem;background:#fff}
-.btn{display:block;width:100%;border:4px solid var(--ink);border-radius:16px;box-shadow:5px 5px 0 var(--ink);font-weight:700;font-size:1.1rem;padding:14px;cursor:pointer;transition:.12s;background:var(--blue);color:#fff;margin-top:16px;touch-action:manipulation}
-.btn:active{transform:translate(4px,4px);box-shadow:1px 1px 0 var(--ink)}
-.btn:disabled{background:#cbd5e1;color:#64748b;cursor:not-allowed}
-.btn.go{background:var(--green)}.btn.again{background:var(--yellow);color:var(--ink)}
+.shell{max-width:560px;min-height:700px;margin:0 auto;background:var(--cr);padding:0 16px 40px;position:relative}
+@media(min-width:900px){body{padding:28px 0}.shell{max-width:660px;border-radius:28px;border:4px solid var(--ink);box-shadow:10px 10px 0 var(--ink);padding:0 28px 40px}}
 .hidden{display:none!important}
-.topbar{position:fixed;top:0;left:0;right:0;z-index:40;background:#fff;border-bottom:4px solid var(--ink)}
-.topin{max-width:900px;margin:0 auto;padding:8px 16px;display:flex;align-items:center;gap:10px}
-.track{height:14px;background:#e8eef3;border:3px solid var(--ink);border-radius:999px;overflow:hidden}
-.fill{height:100%;background:linear-gradient(90deg,var(--pink),var(--yellow),#00d9ff);transition:width .4s}
-.tfill{height:100%;background:linear-gradient(90deg,#40d978,#ffd83d,#ff5a67);transition:width 1s linear}
-.icon-btn{border:3px solid var(--ink);border-radius:999px;background:#fff3a6;padding:6px 10px;font-size:1.1rem;cursor:pointer}
-.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-top:20px}
-.grid3 .card{padding:12px;text-align:center;box-shadow:4px 4px 0 var(--ink)}
-input.f{width:100%;padding:14px;border:4px solid var(--ink);border-radius:16px;font-weight:700;background:#fff;margin-top:12px}
-.life{display:flex;justify-content:space-between;align-items:center;border:3px solid var(--ink);border-radius:14px;background:#fff8cc;padding:8px 12px;margin-bottom:14px}
-.opt{display:block;width:100%;text-align:left;border:4px solid #0c5a8d;background:#dff3ff;border-radius:15px;box-shadow:4px 4px 0 rgba(16,42,67,.18);padding:14px;font-weight:700;cursor:pointer;margin-bottom:10px;transition:.15s}
-.opt:hover{transform:translateY(-2px);background:#c9ebff}
-.opt .l{display:inline-flex;width:34px;height:34px;align-items:center;justify-content:center;border:2px solid #0c5a8d;border-radius:50%;background:#b9e7ff;margin-right:10px}
-.opt.sel{background:#fff3a6;border-color:#8d7a13;outline:4px solid #ffb300;outline-offset:2px}
-.opt.correct{background:#cbffd9;border-color:#0a8048;outline:none}
-.opt.wrong{background:#ffdfe3;border-color:#af1c2a;outline:none}
-.hint{font-size:.8rem;opacity:.75;margin:0 0 12px}
-.row{display:flex;flex-wrap:wrap;align-items:center;gap:10px;justify-content:space-between;border:4px solid var(--ink);border-radius:15px;background:#fff;box-shadow:4px 4px 0 rgba(16,42,67,.14);padding:12px;margin-bottom:10px}
-.row .rt{flex:1 1 220px;font-weight:700}
-.row.ok{background:#cbffd9;border-color:#0a8048}.row.bad{background:#ffdfe3;border-color:#af1c2a}
-.jb{display:flex;gap:8px}
-.jbtn{border:3px solid var(--ink);border-radius:12px;padding:8px 12px;font-weight:700;cursor:pointer;background:#f1f5f9;box-shadow:3px 3px 0 rgba(16,42,67,.18)}
-.jbtn.t.on{background:#98e7a5}.jbtn.x.on{background:#ffb1ba}
-.jbtn:disabled{cursor:default}
-.neu .jbtn.on{background:#bde0fe}
-.sent{line-height:2.6;font-size:1.1rem;font-weight:700}
-.sent select,.numin{border:4px solid var(--ink);border-radius:12px;background:#fff8cc;padding:6px 8px;font-weight:700;margin:0 4px}
-.sent select.ok{background:#cbffd9;border-color:#0a8048}.sent select.bad{background:#ffdfe3;border-color:#af1c2a}
-.numin{width:130px;font-size:1.6rem;text-align:center}
-.scene{background:#fff4a8;border:4px solid var(--ink);border-radius:15px;padding:12px 14px;margin-bottom:14px;font-weight:700}
-.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);z-index:90;width:min(92vw,520px);border:4px solid var(--ink);border-radius:16px;box-shadow:6px 6px 0 var(--ink);padding:14px 16px;font-weight:700;background:#ffb1ba}
-@keyframes pop{0%{transform:scale(.88)}60%{transform:scale(1.05)}100%{transform:scale(1)}}
-.pop{animation:pop .35s ease-out}
-@media (prefers-reduced-motion:reduce){.pop{animation:none}.tfill,.fill{transition:none}}
-.fb{margin-top:16px;line-height:1.5}
-.big{font-size:3.6rem;margin:0}
-.c{text-align:center}
+h1,h2,h3{margin:0;line-height:1.1}
+.hud{position:sticky;top:0;z-index:20;background:var(--cr);padding:12px 0 10px;border-bottom:3px solid var(--ink);margin:0 -16px 16px;padding-left:16px;padding-right:16px}
+@media(min-width:900px){.hud{margin:0 -28px 18px;padding-left:28px;padding-right:28px;border-radius:24px 24px 0 0}}
+.segs{display:grid;grid-template-columns:repeat(10,1fr);gap:4px}
+.seg{height:10px;border-radius:6px;background:#e6d5c3;border:2px solid var(--ink)}
+.seg.on{background:var(--ye)}.seg.ok{background:var(--gr)}.seg.no{background:var(--rd)}
+.hrow{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-weight:700;font-size:.9rem}
+.chip{display:inline-block;background:#fff;border:3px solid var(--ink);border-radius:999px;padding:3px 11px;font-weight:700;font-size:.85rem}
+.card{background:#fff;border:3px solid var(--ink);border-radius:20px;box-shadow:var(--sh);padding:18px}
+.hero{background:var(--m);color:var(--cr);border-radius:24px;border:3px solid var(--ink);box-shadow:var(--sh);padding:26px 20px 22px;margin-top:18px;position:relative;overflow:hidden}
+.hero h1{font-size:clamp(3rem,15vw,4.6rem);font-weight:800;letter-spacing:-.03em}
+.hero .st{position:absolute;right:14px;top:14px;background:var(--ye);color:var(--ink);border:3px solid var(--ink);border-radius:12px;padding:4px 10px;font-weight:800;transform:rotate(7deg)}
+.hero .em{font-size:3.4rem;margin-top:6px}
+.perks{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0}
+.perk{background:#fff;border:3px solid var(--ink);border-radius:16px;padding:10px 6px;text-align:center;font-size:.78rem;font-weight:700}
+.perk b{display:block;font-size:1.5rem}
+input.f{width:100%;padding:13px 14px;border:3px solid var(--ink);border-radius:14px;background:#fff;font-weight:600;margin-top:10px;font-size:1rem}
+input:focus,select:focus,button:focus-visible{outline:3px solid var(--bl);outline-offset:2px}
+.btn{display:block;width:100%;border:3px solid var(--ink);border-radius:16px;background:var(--br);color:#fff;box-shadow:var(--sh);font-weight:800;font-size:1.1rem;padding:14px;margin-top:16px;cursor:pointer;touch-action:manipulation;transition:transform .1s,box-shadow .1s}
+.btn:active:not(:disabled){transform:translate(4px,4px);box-shadow:0 0 0 var(--ink)}
+.btn:disabled{background:#d9c9b8;color:#7a6a5a;box-shadow:none;cursor:not-allowed}
+.btn.go{background:var(--gr)}.btn.ye{background:var(--ye);color:var(--ink)}
+.tag{display:inline-block;background:var(--ye);border:3px solid var(--ink);border-radius:10px;padding:2px 10px;font-weight:800;font-size:.8rem;transform:rotate(-2deg)}
+.q{font-size:clamp(1.25rem,5vw,1.6rem);font-weight:800;margin:12px 0 4px;line-height:1.25}
+.sc{background:#fff0c2;border:3px dashed var(--ink);border-radius:14px;padding:10px 12px;margin:10px 0;font-weight:600}
+.hint{font-size:.85rem;opacity:.75;margin:6px 0 12px}
+.opt{display:flex;gap:10px;align-items:center;width:100%;text-align:left;background:#fff;border:3px solid var(--ink);border-radius:16px;padding:12px;margin-bottom:10px;font-weight:600;cursor:pointer;box-shadow:3px 3px 0 var(--ink);transition:transform .1s}
+.opt:active:not(:disabled){transform:translate(3px,3px);box-shadow:0 0 0 var(--ink)}
+.opt .l{flex:none;width:32px;height:32px;border-radius:10px;border:3px solid var(--ink);background:var(--ye);display:grid;place-items:center;font-weight:800}
+.opt.sel{background:#dbe8ff}.opt.sel .l{background:var(--bl);color:#fff}
+.opt.correct{background:#c9f5dd}.opt.correct .l{background:var(--gr);color:#fff}
+.opt.wrong{background:#ffd9de}.opt.wrong .l{background:var(--rd);color:#fff}
+.row{background:#fff;border:3px solid var(--ink);border-radius:16px;padding:12px;margin-bottom:10px}
+.row .jb{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.jbtn{border:3px solid var(--ink);border-radius:12px;padding:9px;font-weight:800;background:#f3e9dc;cursor:pointer}
+.jbtn.on{background:var(--bl);color:#fff}
+.row.ok{background:#c9f5dd}.row.bad{background:#ffd9de}
+.row small{display:block;margin-top:6px;font-weight:700}
+.sent{line-height:2.6;font-size:1.05rem;font-weight:600}
+.sent select{border:3px solid var(--ink);border-radius:10px;background:#fff0c2;padding:5px 6px;font-weight:700;margin:0 3px}
+.sent select.ok{background:#c9f5dd}.sent select.bad{background:#ffd9de}
+.numin{width:110px;border:3px solid var(--ink);border-radius:12px;background:#fff;padding:8px;font-size:1.6rem;font-weight:800;text-align:center}
+.pool{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.pc{border:3px solid var(--ink);border-radius:12px;background:var(--ye);padding:8px 12px;font-weight:700;cursor:pointer;box-shadow:3px 3px 0 var(--ink)}
+.pc:disabled{opacity:.3;box-shadow:none}
+.slot{display:flex;align-items:center;gap:10px;min-height:48px;border:3px dashed var(--ink);border-radius:14px;padding:8px 12px;margin-bottom:8px;background:#fff;font-weight:700;width:100%;text-align:left;cursor:pointer}
+.slot.full{border-style:solid;background:#dbe8ff}
+.slot.ok{background:#c9f5dd}.slot.bad{background:#ffd9de}
+.slot i{flex:none;font-style:normal;width:26px;height:26px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-size:.8rem}
+.slot em{font-style:normal;font-size:.72rem;opacity:.7;margin-left:auto}
+.fb{margin-top:16px;border:3px solid var(--ink);border-radius:18px;box-shadow:var(--sh);padding:14px 16px;line-height:1.5;animation:up .3s ease-out}
+.fb.ok{background:#c9f5dd}.fb.no{background:#ffe4a8}
+.fb h3{font-size:1.2rem;margin-bottom:6px}
+@keyframes up{from{transform:translateY(12px);opacity:0}to{transform:none;opacity:1}}
+.toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:90;width:min(90vw,440px);background:var(--ink);color:#fff;border-radius:14px;padding:12px 16px;font-weight:700;text-align:center}
+.conf{position:fixed;z-index:80;pointer-events:none;font-size:1.5rem;animation:fly 1s ease-out forwards}
+@keyframes fly{to{transform:translate(var(--x),var(--y)) rotate(var(--r));opacity:0}}
+.rev{border:3px solid var(--ink);border-radius:14px;padding:10px 12px;margin-top:8px;font-size:.88rem;line-height:1.45}
+.rev.ok{background:#c9f5dd}.rev.no{background:#ffd9de}
+.asuh{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px;text-align:center;font-weight:800;font-size:.75rem}
+.asuh b{display:grid;place-items:center;height:54px;font-size:1.8rem;border:3px solid var(--ink);border-radius:12px;margin-bottom:4px}
+@media(prefers-reduced-motion:reduce){.fb,.conf{animation:none}.conf{display:none}}
 </style>
 </head>
 <body>
-<div id="app">
- <div id="topbar" class="topbar hidden"><div class="topin">
-  <div style="flex:1"><div class="track"><div id="pf" class="fill" style="width:0"></div></div>
-  <div style="font-size:.75rem;font-weight:700;margin-top:3px"><span id="pt">0%</span> • <span id="ml"></span></div></div>
-  <div id="score" class="badge" style="background:#fff3a6">⭐ 0</div>
-  <button id="giveUp" class="icon-btn" type="button" aria-label="Menyerah dan ulangi dari awal" title="Menyerah & ulangi">🏳️</button>
-  <button id="audioBtn" class="icon-btn" type="button" aria-label="Suara" style="background:#ffa6c9">🔊</button>
- </div></div>
+<div class="shell" id="app">
+ <div id="hud" class="hud hidden">
+  <div class="segs" id="segs"></div>
+  <div class="hrow"><span id="pos">Soal 1/10</span><span class="chip" id="streak">🔥 0</span><span class="chip" id="score">⭐ 0</span></div>
+ </div>
 
- <section id="startScreen" style="max-width:720px;margin:0 auto"><div class="card" style="padding:28px">
-  <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px">
-   <span class="badge" style="background:#a5f3fc">PERISHABLE • QUEST</span><span class="badge" style="background:#fbcfe8">MISI 8</span></div>
-  <div class="c"><p class="big" style="margin-top:18px">🥩🔪</p>
-   <h1 style="font-size:clamp(2.2rem,8vw,3.8rem);line-height:1">BUTCHER SAPI</h1>
-   <p style="font-size:1.15rem;margin-top:10px">Olah dengan benar, pajang dengan menarik! ⚡</p></div>
-  <div class="grid3">
-   <div class="card" style="background:#fce7f3"><div style="font-size:1.6rem">🧠</div>12 Challenge</div>
-   <div class="card" style="background:#fef9c3"><div style="font-size:1.6rem">⏱️</div>30–45 detik/soal</div>
-   <div class="card" style="background:#cffafe"><div style="font-size:1.6rem">❤️</div>5 nyawa</div></div>
-  <div class="card" style="background:#eff6ff;margin-top:20px;box-shadow:4px 4px 0 var(--ink)">
-   <h2 style="font-size:1.25rem">🎯 MISSION BRIEFING</h2>
-   <p style="margin:8px 0;line-height:1.5">Uji pemahamanmu tentang penanganan daging sapi: persiapan produk dan sarana kerja, thawing, display di serve over chiller, label harga, trimming, serta handling produk sebelum tutup dan sebelum buka toko. Ada 5 model tantangan: <b>Benar/Salah &amp; Klasifikasi</b>, <b>Pilih semua yang benar</b>, <b>Isi yang rumpang</b>, <b>Hitung</b>, dan <b>Kasus lapangan</b>.</p>
-   <p style="margin:0;font-size:.9rem">⚠️ Jawaban boleh diubah sebelum tombol CEK ditekan.</p></div>
+ <section id="startS">
+  <div class="hero"><span class="st">Misi 8</span><div class="em">🥩🔪</div><h1>Butcher<br>Sapi</h1>
+   <p style="margin:12px 0 0;font-weight:600">Olah, pajang, dan tangani daging seperti Stand Keeper Perishable terbaik Indogrosir.</p></div>
+  <div class="perks"><div class="perk"><b>🎯</b>10 soal<br>6 gaya main</div><div class="perk"><b>♾️</b>Tanpa waktu<br>& nyawa</div><div class="perk"><b>💡</b>Ada penjelasan<br>tiap soal</div></div>
+  <div class="card"><h3>Cara main</h3><p style="margin:8px 0 0;line-height:1.5">Jawab semua soal, salah pun tidak apa-apa. Setiap soal ditutup dengan penjelasan materi yang benar. Jawab benar berturut-turut untuk bonus 🔥 combo.</p></div>
   <input id="nameIn" class="f" placeholder="Nama lengkap" autocomplete="off">
-  <input id="nikIn" class="f" placeholder="NIK" autocomplete="off">
-  <button id="startBtn" class="btn go" type="button">🚀 MULAI QUEST</button>
-  <p class="c" style="font-size:.75rem;opacity:.7;margin-top:16px">Education & Training Dept. • Perishable • Butcher Part 1 (Sapi)</p>
- </div></section>
-
- <section id="quizScreen" class="hidden">
-  <div class="card">
-   <div class="life"><b style="font-size:.85rem">❤️ SISA NYAWA</b><span id="lives" style="font-size:1.3rem;letter-spacing:4px"></span></div>
-   <div style="display:flex;justify-content:space-between;gap:12px;align-items:flex-start">
-    <div><span id="lvl" class="badge" style="background:#fef08a"></span><h2 id="qTitle" style="font-size:clamp(1.3rem,4.5vw,1.9rem);margin-top:12px;line-height:1.25"></h2></div>
-    <span id="qNo" class="badge"></span></div>
-   <div style="margin-top:14px"><div style="display:flex;justify-content:space-between;font-weight:700;font-size:.85rem"><span>⏱️ WAKTU</span><span id="tt"></span></div>
-    <div class="track" style="height:12px;margin-top:4px"><div id="tf" class="tfill" style="width:100%"></div></div></div>
-   <div id="area" style="margin-top:20px"></div>
-   <div id="fb" class="fb" aria-live="polite"></div>
-  </div>
-  <button id="nextBtn" class="btn" type="button" disabled>SOAL BERIKUTNYA ➜</button>
+  <input id="nikIn" class="f" placeholder="NIK" autocomplete="off" inputmode="numeric">
+  <button id="startBtn" class="btn go" type="button">Mulai quest 🚀</button>
  </section>
 
- <section id="resultScreen" class="hidden" style="max-width:820px;margin:0 auto"><div class="card c" style="padding:28px">
-  <p id="rEmoji" class="big pop" style="font-size:4.5rem">🏆</p>
-  <span class="badge" style="background:#fde047">QUEST COMPLETE</span>
-  <h2 id="rTitle" style="font-size:clamp(2rem,7vw,3rem);margin-top:14px"></h2>
-  <p id="rSub" style="margin-top:8px"></p>
-  <div class="grid3" style="grid-template-columns:1fr 1fr">
-   <div class="card" style="background:#cffafe"><div style="font-size:.75rem">SKOR</div><div id="rScore" style="font-size:2.2rem;font-weight:700"></div></div>
-   <div class="card" style="background:#fce7f3"><div style="font-size:.75rem">PERSENTASE</div><div id="rPct" style="font-size:2.2rem;font-weight:700"></div></div></div>
-  <div class="card" style="text-align:left;margin-top:22px;box-shadow:4px 4px 0 var(--ink)">
-   <h3 style="font-size:1.4rem;border-bottom:4px solid var(--ink);padding-bottom:8px">📋 DEBRIEFING</h3><div id="sum" style="margin-top:12px"></div></div>
-  <button id="restart" class="btn again" type="button">🔄 MAIN LAGI</button>
- </div></section>
+ <section id="quizS" class="hidden">
+  <div class="card">
+   <span class="tag" id="mode"></span>
+   <h2 class="q" id="qTitle"></h2>
+   <div id="area"></div>
+  </div>
+  <div id="fb"></div>
+  <button id="nextBtn" class="btn" type="button" disabled>Lanjut</button>
+ </section>
+
+ <section id="resS" class="hidden">
+  <div class="hero" style="text-align:center"><div class="em" id="rEm" style="font-size:4rem">🏆</div><h1 id="rT" style="font-size:2.3rem;margin-top:6px"></h1><p id="rSub" style="font-weight:600;margin:10px 0 0"></p></div>
+  <div class="perks" style="grid-template-columns:1fr 1fr"><div class="perk">Benar<b id="rOk"></b></div><div class="perk">Skor<b id="rSc"></b></div></div>
+  <div class="card"><h3>Ingat selalu: ASUH</h3><div class="asuh"><div><b style="background:#ffc928">A</b>Aman</div><div><b style="background:#f7a8c4">S</b>Sehat</div><div><b style="background:#d4e86a">U</b>Utuh</div><div><b style="background:#f2a0a6">H</b>Halal</div></div></div>
+  <div class="card" style="margin-top:16px"><h3>Rangkuman jawabanmu</h3><div id="sum"></div></div>
+  <button id="again" class="btn ye" type="button">Main lagi 🔄</button>
+ </section>
 </div>
 
 <script>
-(() => {
-// ===== BANK SOAL (dari materi Misi 8: Lanjutan Butcher Part 1 (Sapi)) =====
-// type: judge (Terima/Tolak per item), multi (pilih semua benar), blank (isi rumpang), num (hitung), mc (kasus lapangan)
-const BASE = [
- {type:'mc',lv:'C2',
-  title:'Dari tiga persiapan pengolahan daging (produk, sarana kerja, mental), mana yang paling krusial?',
-  opts:['Persiapan produk dari penyimpanan','Persiapan seluruh sarana kerja','Persiapan mental kerja karyawan','Persiapan label harga'],a:2,
-  exp:'Persiapan paling krusial adalah mental kerja karyawan agar olahan produk berkualitas tinggi dan tidak ada kecelakaan kerja. Produk dan sarana kerja juga wajib siap, higienis, dan dalam keadaan baik.'},
- {type:'blank',lv:'C3',time:45,
-  title:'Lengkapi langkah thawing di chiller (cara yang PALING AMAN dan IDEAL).',
-  parts:['Pindahkan daging beku ke chiller bersuhu ',0,'°C – ',1,'°C dan diamkan ',2,' jam, lalu diamkan 1–2 jam di suhu ruang agar daging lunak dan segar.'],
-  sel:[{o:['0','1','5'],a:'1'},{o:['4','8','10'],a:'4'},{o:['6','12','24'],a:'12'}],
-  exp:'Thawing di chiller: ambil daging yang benar-benar beku, pindahkan ke chiller 1°C–4°C selama 12 jam, lalu diamkan 1–2 jam di suhu ruang sebelum diolah. Thawing tidak boleh sembarangan karena bakteri patogen berkembang sangat cepat jika suhu naik terlalu lambat atau tidak terkontrol.'},
- {type:'judge',lv:'C3',time:45,lab:['SUHU RUANG','PERENDAMAN'],neutral:1,
-  title:'THAWING: tentukan ciri tiap kasus ini termasuk thawing suhu ruang atau perendaman.',
-  items:[
-   {t:'Daging diletakkan di area terbuka yang bersih pada suhu 20°C–24°C selama 2–3 jam',a:'T'},
-   {t:'Daging dimasukkan ke ziplock/plastik perekat yang rapat, lalu direndam di bak berisi air',a:'X'},
-   {t:'Dipakai jika pagi ada pemesanan yang akan diambil sore hari',a:'T'},
-   {t:'Dipakai saat kondisi terdesak dan tidak disarankan dilakukan setiap saat',a:'X'},
-   {t:'Daging diamkan di bak berisi air sampai lunak',a:'X'},
-   {t:'Tidak memerlukan bak air, cukup diletakkan di area terbuka namun bersih',a:'T'}],
-  exp:'Thawing suhu ruang: area terbuka namun bersih, 20°C–24°C selama 2–3 jam (untuk pesanan pagi yang diambil sore). Perendaman: daging dalam ziplock/plastik rapat direndam di bak berisi air sampai lunak, hanya jika terpaksa dan tidak disarankan setiap saat.'},
- {type:'multi',lv:'C2',
-  title:'Mana saja kondisi sarana kerja yang BENAR sebelum display? (pilih semua yang benar)',
-  opts:[['Pisau red meat tidak tertukar dengan pisau lainnya',1],['Tissue dalam kondisi baik dan layak untuk membersihkan daging',1],['Tray stainless steel bersih dan tidak rusak/penyok',1],['Plastik wrapping berukuran sesuai dan berbahan food grade',1],['Pisau boleh bergantian dipakai untuk semua jenis daging',0],['Tray yang sedikit penyok masih boleh dipakai',0]],
-  exp:'Sarana kerja wajib tersedia dan dalam keadaan baik: pisau daging (tidak tertukar untuk red meat), tissue yang baik dan layak, tray stainless steel bersih tanpa penyok, dan plastik wrapping sesuai ukuran serta food grade.'},
- {type:'blank',lv:'C3',time:40,
-  title:'Lengkapi cara menyusun display daging dalam tray mika.',
-  parts:['Susunan dari bawah ke atas: ',0,', lalu ',1,', lalu produk daging, dan paling atas ',2,'.'],
-  sel:[{o:['Tray mika','Absorbent pad','Plastic wrap'],a:'Tray mika'},{o:['Tray mika','Absorbent pad','Plastic wrap'],a:'Absorbent pad'},{o:['Tray mika','Absorbent pad','Plastic wrap'],a:'Plastic wrap'}],
-  exp:'Susunan: tray mika di dasar, absorbent pad, produk, lalu plastic wrap yang menutup seluruh tray agar higienis. Tray harus berbahan mika dan berwarna hitam; dilarang memakai bahan styrofoam.'},
- {type:'judge',lv:'C3',time:45,lab:['BENAR','SALAH'],
-  title:'DISPLAY DAGING: setiap pernyataan ini BENAR atau SALAH?',
-  items:[
-   {t:'Tray mika harus berwarna hitam, dan dilarang memakai styrofoam',a:'T'},
-   {t:'Suhu serve over chiller dijaga pada 1°C–4°C',a:'T'},
-   {t:'Salah harga pada POP sedikit masih boleh diperbolehkan',a:'X'},
-   {t:'Absorbent pad yang habis dapat diminta ke GA cabang',a:'T'},
-   {t:'POP hanya dipasang untuk sebagian jenis daging yang dipajang',a:'X'},
-   {t:'Penjepit daging harus tersedia dalam kondisi baik dan bersih',a:'T'}],
-  exp:'Pastikan POP terpasang untuk semua jenis daging dengan deskripsi dan harga benar (tidak boleh ada salah harga), penjepit daging baik dan bersih, tray mika hitam (bukan styrofoam), absorbent pad tersedia (minta ke GA cabang jika habis), dan chiller 1°C–4°C.'},
- {type:'num',lv:'C2',time:40,lbl:'Batas:',
-  title:'Tanggal produksi pada label harga sudah lewat berapa hari, maka daging WAJIB diambil dari pajangan?',
-  ans:2,unit:'hari',
-  exp:'Cek tanggal produksi label setiap hari untuk memastikan produk yang dipajang fresh. Jika sudah lewat 2 hari, wajib diambil dari pajangan.'},
- {type:'mc',lv:'C3',
-  title:'Kasus: Saat simulasi kasir, harga di kasir tidak sama dengan harga di label harga daging. Apa yang harus dilakukan?',
-  opts:['Tetap pajang dan menunggu konsumen komplain','Segera lapor kepada atasan agar diperbaiki, karena tidak boleh ada salah harga','Ubah sendiri angka pada label dengan spidol','Abaikan karena selisihnya kecil'],a:1,
-  exp:'Pastikan harga di label sesuai dengan kasir dan WAJIB melakukan simulasi di kasir setiap hari. Jika ada kesalahan (deskripsi atau kode PLU), segera lapor kepada atasan untuk diperbaiki. Tidak boleh ada salah harga.'},
- {type:'multi',lv:'C3',
-  title:'Apa saja yang di-TRIMMING dari daging segar? (pilih semua yang benar)',
-  opts:[['Lemak berlebih',1],['Serpihan tulang kecil',1],['Daging berwarna gelap akibat oksidasi berlebih',1],['Daging segar berkualitas baik',0],['Label harga',0]],
-  exp:'Trimming adalah pemotongan, pembersihan, dan perapian daging untuk menghilangkan bagian yang tidak diinginkan atau tidak layak jual: lemak berlebih, serpihan tulang kecil, dan daging berwarna gelap akibat oksidasi berlebih.'},
- {type:'mc',lv:'C3',
-  title:'Kasus: Kamu selesai trimming dan mendapat lemak, daging menghitam, dan pecahan tulang. Apa yang benar?',
-  opts:['Satukan semuanya dalam 1 plastik lalu timbang sekali','Kumpulkan dan pisahkan sesuai jenis, timbang dan beri label tiap produk, lalu catat rapi sesuai angka timbangan','Buang semuanya tanpa dicatat','Timbang lalu kurangi sedikit beratnya agar selisih tidak terlihat'],a:1,
-  exp:'Hasil trimming dikumpulkan di plastik dan dipisahkan sesuai jenis (lemak, daging menghitam, pecahan tulang), ditimbang dan dilabel per produk (jangan disatukan), dan dicatat rapi sesuai angka timbangan. DILARANG memanipulasi berat hasil trimming.'},
- {type:'mc',lv:'C2',
-  title:'Apa kepanjangan ASUH sebagai poin penting saat memajang produk daging?',
-  opts:['Aman, Segar, Utuh, Higienis','Aman, Sehat, Utuh, Halal','Aman, Sehat, Unggul, Halal','Awet, Sehat, Utuh, Halal'],a:1,
-  exp:'Poin penting saat pajang produk: ASUH, yaitu Aman, Sehat, Utuh, dan Halal.'},
- {type:'judge',lv:'C3',time:45,lab:['BENAR','SALAH'],
-  title:'HANDLING PRODUK DAGING: setiap pernyataan ini BENAR atau SALAH?',
-  items:[
-   {t:'Sebelum tutup toko, ambil seluruh pajangan daging di serve over chiller',a:'T'},
-   {t:'Jika plastic wrap sudah kurang baik, wajib di-wrapping ulang',a:'T'},
-   {t:'Daging boleh dicampur dengan buah dan sayur di chill room',a:'X'},
-   {t:'Chill room dijaga pada suhu 1°C–4°C',a:'T'},
-   {t:'Kebersihan serve over chiller dan kacanya dicek setiap pagi sebelum memajang',a:'T'},
-   {t:'Produk dari chill room langsung dipajang tanpa disortir kualitasnya',a:'X'}],
-  exp:'Shift siang: ambil seluruh pajangan, wrapping ulang bila wrap kurang baik, simpan di chill room 1°C–4°C dan WAJIB dipisahkan dari buah dan sayur. Shift pagi: bersihkan serve over chiller (termasuk kaca), ambil produk dari chiller sambil disortir, trimming seperlunya, lalu pajang rapi dan menarik.'}
+(()=>{
+const BANK=[
+{type:'mc',tag:'Pilih satu',title:'Apakah pengertian dari THAWING?',
+ opts:['Proses mengubah produk yang berada dalam kondisi beku kembali ke suhu penyimpanan normal atau suhu ruang','Proses membekukan daging segar agar tahan lebih lama di freezer','Proses membuang lemak berlebih dan serpihan tulang dari daging','Proses membungkus daging dengan plastic wrap sebelum dipajang'],a:0,
+ exp:'Thawing adalah proses mengubah produk yang berada dalam kondisi beku kembali ke suhu penyimpanan normal atau suhu ruang, agar siap diolah menjadi produk lainnya. Thawing tidak boleh dilakukan sembarangan: jika suhu naik terlalu lambat atau tidak terkontrol, bakteri patogen dapat berkembang sangat cepat pada permukaan makanan yang mulai mencair.'},
+{type:'blank',tag:'Isi yang rumpang',title:'Thawing di chiller: cara yang paling aman dan ideal.',
+ parts:['Pindahkan daging yang benar-benar beku ke chiller bersuhu ',0,'°C – ',1,'°C selama ',2,' jam, lalu diamkan 1–2 jam di suhu ruang agar lunak dan segar.'],
+ sel:[{o:['0','1','5'],a:'1'},{o:['4','8','10'],a:'4'},{o:['6','12','24'],a:'12'}],
+ exp:'Chiller 1°C–4°C selama 12 jam, lalu 1–2 jam di suhu ruang. Thawing tidak boleh sembarangan: kalau suhu naik terlalu lambat atau tidak terkontrol, bakteri patogen cepat berkembang di permukaan daging yang mulai mencair.'},
+{type:'judge',tag:'Klasifikasi',title:'Thawing suhu ruang atau perendaman? Tentukan tiap ciri.',lab:['🌡️ Suhu ruang','💧 Perendaman'],
+ items:[['Daging ditaruh di area terbuka yang bersih, 20°C–24°C, selama 2–3 jam',0],['Daging dimasukkan ke ziplock yang rapat lalu direndam di bak berisi air',1],['Dipakai jika pagi ada pesanan yang diambil sore hari',0],['Dipakai saat terdesak dan tidak disarankan setiap saat',1]],
+ exp:'Suhu ruang: area bersih 20°C–24°C selama 2–3 jam, untuk pesanan pagi yang diambil sore. Perendaman: daging dalam ziplock/plastik perekat yang benar-benar rapat direndam di bak air sampai lunak; hanya saat terpaksa.'},
+{type:'multi',tag:'Pilih semua yang benar',title:'Sarana kerja mana yang kondisinya BENAR sebelum display?',
+ opts:[['Pisau red meat tidak tertukar dengan pisau lain',1],['Tissue baik dan layak untuk membersihkan daging',1],['Tray stainless steel bersih dan tidak penyok',1],['Plastik wrapping berukuran sesuai dan food grade',1],['Satu pisau yang sama dipakai untuk semua jenis daging',0],['Tray yang sedikit penyok masih boleh dipakai',0]],
+ exp:'Sarana wajib ada dan dalam keadaan baik: pisau daging (red meat tidak boleh tertukar), tissue layak, tray stainless bersih tanpa penyok, dan plastic wrap food grade dengan ukuran sesuai.'},
+{type:'order',tag:'Susun urutan',title:'Susun display daging di tray mika, dari lapisan PALING ATAS ke PALING BAWAH.',ends:['Paling atas','Paling bawah'],
+ items:['Plastic wrap','Produk daging','Absorbent pad','Tray mika (hitam)'],
+ exp:'Dari atas ke bawah: plastic wrap yang menutup seluruh tray agar higienis, produk daging, absorbent pad, lalu tray mika di dasar. Tray harus mika berwarna hitam, dilarang styrofoam. Absorbent pad habis? Minta ke GA cabang.'},
+{type:'num',tag:'Hitung',title:'Tanggal produksi di label harga sudah lewat berapa hari, maka daging WAJIB diambil dari pajangan?',ans:2,unit:'hari',
+ exp:'Tanggal produksi label dicek setiap hari supaya yang dipajang selalu fresh. Lewat 2 hari: wajib diambil dari pajangan.'},
+{type:'mc',tag:'Kasus lapangan',title:'Saat simulasi kasir pagi ini, harga di kasir ternyata beda dengan harga di label daging tray mika. Apa langkahmu?',
+ sc:'Toko akan buka 15 menit lagi.',
+ opts:['Tetap pajang, tunggu ada konsumen yang komplain','Segera lapor ke atasan agar diperbaiki, tidak boleh ada salah harga','Coret angka di label dan tulis ulang dengan spidol','Abaikan, selisihnya hanya sedikit'],a:1,
+ exp:'Harga label harus sama dengan kasir, makanya simulasi kasir WAJIB tiap hari. Jika deskripsi atau kode PLU keliru, lapor atasan agar diperbaiki. Tidak boleh ada salah harga.'},
+{type:'multi',tag:'Pilih semua yang benar',title:'Apa saja yang dibuang saat TRIMMING daging segar?',
+ opts:[['Lemak berlebih',1],['Serpihan tulang kecil',1],['Daging gelap akibat oksidasi berlebih',1],['Daging merah segar berkualitas baik',0],['Label harga',0]],
+ exp:'Trimming membuang bagian yang tidak diinginkan atau tidak layak jual: lemak berlebih, serpihan tulang kecil, dan daging gelap karena oksidasi berlebih. Lakukan hati-hati agar daging bagus tidak ikut rusak.'},
+{type:'judge',tag:'Fakta atau mitos',title:'Handling produk dan hasil trimming. Fakta atau mitos?',lab:['✅ Fakta','❌ Mitos'],
+ items:[['Daging di chill room harus dipisahkan dari buah dan sayur',0],['Berat hasil trimming boleh disesuaikan agar selisihnya tidak terlihat',1],['Sebelum tutup toko, seluruh pajangan daging diambil dan disimpan di chill room 1°C–4°C',0],['Lemak, daging gelap, dan pecahan tulang boleh ditimbang jadi satu plastik',1],['Plastic wrap yang sudah kurang baik wajib di-wrapping ulang',0]],
+ exp:'Hasil trimming dipisah per jenis, ditimbang, dilabel, dan dicatat sesuai angka timbangan; DILARANG memanipulasi berat. Sebelum tutup: ambil seluruh pajangan, wrap ulang bila perlu, simpan di chill room 1°C–4°C terpisah dari buah dan sayur.'},
+{type:'order',tag:'Susun urutan',title:'Persiapan shift pagi sebelum buka toko. Urutkan dari langkah pertama.',ends:['Pertama','Terakhir'],
+ items:['Bersihkan serve over chiller, termasuk kacanya','Ambil produk dari chiller room dan sortir kualitasnya','Trimming produk seperlunya','Pajang rapi dan menarik mata'],
+ exp:'Shift pagi: bersihkan serve over chiller dan kaca, ambil produk dari chiller room sambil menyortir, trimming secukupnya sesuai SOP, lalu pajang. Kekuatan penjualan ada pada tampilan visual.'}
 ];
-
-// ===== STATE & UTIL =====
 const $=id=>document.getElementById(id);
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const shuffle=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
-const MAXLIVES=5;
-let Q=[],S={i:0,score:0,lives:MAXLIVES,timer:30,tid:null,done:false,sum:[],sel:null};
+const shuf=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
 const area=$('area');
+let S={i:0,ok:0,score:0,streak:0,done:false,res:[]},cur={};
 
-// audio
-let ac=null,muted=false;
-function tone(f,d,t='square',v=.08){if(!ac||muted)return;const o=ac.createOscillator(),g=ac.createGain(),n=ac.currentTime;o.type=t;o.frequency.value=f;g.gain.setValueAtTime(.0001,n);g.gain.exponentialRampToValueAtTime(v,n+.01);g.gain.exponentialRampToValueAtTime(.0001,n+d);o.connect(g);g.connect(ac.destination);o.start(n);o.stop(n+d+.02)}
-function initAudio(){if(!ac){const A=window.AudioContext||window.webkitAudioContext;if(A)ac=new A()}if(ac&&ac.state==='suspended')ac.resume()}
-const click=()=>{initAudio();tone(540,.06,'square',.1)};
-const good=()=>{initAudio();tone(700,.09,'sine',.12);setTimeout(()=>tone(980,.14,'sine',.11),70)};
-const bad=()=>{initAudio();tone(180,.14,'sawtooth',.12);setTimeout(()=>tone(120,.18,'sawtooth',.1),90)};
-const win=()=>{initAudio();[523,659,784,988].forEach((f,i)=>setTimeout(()=>tone(f,.18,'square',.1),i*100))};
-$('audioBtn').onclick=()=>{muted=!muted;$('audioBtn').textContent=muted?'🔇':'🔊';click()};
+function toast(m){const e=document.createElement('div');e.className='toast';e.textContent=m;document.body.appendChild(e);setTimeout(()=>e.remove(),2200)}
+function show(id){['startS','quizS','resS'].forEach(x=>$(x).classList.add('hidden'));$(id).classList.remove('hidden');window.scrollTo(0,0)}
+function confetti(){if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+ for(let k=0;k<16;k++){const e=document.createElement('span');e.className='conf';e.textContent=['🥩','⭐','🔥','✨'][k%4];
+  e.style.left='50%';e.style.top='45%';e.style.setProperty('--x',(Math.random()*320-160)+'px');e.style.setProperty('--y',(Math.random()*-260-30)+'px');e.style.setProperty('--r',(Math.random()*360)+'deg');
+  document.body.appendChild(e);setTimeout(()=>e.remove(),1000)}}
+function hud(){
+ $('segs').innerHTML=BANK.map((_,k)=>{const r=S.res[k];return `<div class="seg ${r?(r.ok?'ok':'no'):(k===S.i?'on':'')}"></div>`}).join('');
+ $('pos').textContent=`Soal ${S.i+1}/${BANK.length}`;$('streak').textContent='🔥 '+S.streak;$('score').textContent='⭐ '+S.score}
+const chk=l=>`<button id="chk" class="btn" type="button">${l}</button>`;
 
-function toast(m){const e=document.createElement('div');e.className='toast';e.textContent=m;document.body.appendChild(e);setTimeout(()=>e.remove(),3000)}
-function show(id){['startScreen','quizScreen','resultScreen'].forEach(x=>$(x).classList.add('hidden'));$(id).classList.remove('hidden');window.scrollTo({top:0,behavior:'smooth'})}
-function setNext(on){$('nextBtn').disabled=!on}
-function drawLives(){$('lives').innerHTML=Array.from({length:MAXLIVES},(_,i)=>i<S.lives?'❤️':'🤍').join('');$('lives').setAttribute('aria-label',`Sisa nyawa ${S.lives} dari ${MAXLIVES}`)}
-function header(){const p=Math.round(S.i/Q.length*100);$('pf').style.width=p+'%';$('pt').textContent=p+'%';$('score').textContent='⭐ '+S.score;$('ml').textContent=`MISSION ${S.i+1}/${Q.length} • ${Q[S.i].type.toUpperCase()}`}
-
-function startTimer(max){
- clearInterval(S.tid);S.timer=max;$('tt').textContent=max;$('tf').style.width='100%';
- S.tid=setInterval(()=>{if(S.done)return;S.timer--;$('tt').textContent=S.timer;$('tf').style.width=(S.timer/max*100)+'%';
-  if(S.timer<=0){clearInterval(S.tid);finish(false,true)}},1000)}
-
-// ===== RENDER =====
 function render(){
- const q=Q[S.i];area.className='';S.done=false;S.sel=null;$('fb').innerHTML='';setNext(false);drawLives();header();
- $('lvl').textContent='LEVEL '+q.lv;$('qTitle').textContent=q.title;$('qNo').textContent='Q'+(S.i+1);
- startTimer(q.time||30);
- ({mc:rMC,multi:rMulti,judge:rJudge,blank:rBlank,num:rNum})[q.type](q);
- const first=area.querySelector('button,select,input');if(first&&q.type==='num')setTimeout(()=>first.focus(),50);
-}
-const checkBtn=(label)=>`<button id="chk" class="btn" type="button">${label}</button>`;
+ const q=BANK[S.i];S.done=false;cur={};$('fb').innerHTML='';
+ $('nextBtn').disabled=true;$('nextBtn').textContent=S.i===BANK.length-1?'Lihat hasil 🏆':'Lanjut ➜';
+ $('mode').textContent=q.tag;$('qTitle').textContent=q.title;hud();
+ ({mc:rMC,multi:rMulti,judge:rJudge,blank:rBlank,num:rNum,order:rOrder})[q.type](q);
+ window.scrollTo(0,0)}
 
 function rMC(q){
- const items=shuffle(q.opts.map((t,i)=>({t,i})));
- area.innerHTML=`<p class="hint">Pilih satu jawaban paling tepat.</p>`+items.map((o,k)=>`<button type="button" class="opt" data-i="${o.i}"><span class="l">${'ABCD'[k]}</span>${esc(o.t)}</button>`).join('');
- area.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{if(S.done)return;click();S.sel=+b.dataset.i;finish(S.sel===q.a)});
-}
+ const it=shuf(q.opts.map((t,i)=>({t,i})));
+ area.innerHTML=(q.sc?`<div class="sc">📍 ${esc(q.sc)}</div>`:'')+it.map((o,k)=>`<button type="button" class="opt" data-i="${o.i}"><span class="l">${'ABCD'[k]}</span>${esc(o.t)}</button>`).join('');
+ area.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{if(S.done)return;cur.sel=+b.dataset.i;finish(cur.sel===q.a)})}
 function rMulti(q){
- const items=shuffle(q.opts.map(([t,c])=>({t,c})));
- area.innerHTML=`<p class="hint">Bisa lebih dari satu jawaban. Tap lagi untuk membatalkan pilihan.</p>`+items.map((o,k)=>`<button type="button" class="opt" data-c="${o.c}"><span class="l">☐</span>${esc(o.t)}</button>`).join('')+checkBtn('CEK JAWABAN');
- area.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{if(S.done)return;click();b.classList.toggle('sel');b.querySelector('.l').textContent=b.classList.contains('sel')?'☑':'☐'});
- $('chk').onclick=()=>{if(S.done)return;
-  const bs=[...area.querySelectorAll('.opt')];
-  if(!bs.some(b=>b.classList.contains('sel'))){toast('Pilih minimal satu jawaban dulu.');return}
-  const ok=bs.every(b=>b.classList.contains('sel')===(b.dataset.c==='1'));finish(ok)};
-}
-function LB(q){return q.lab||['TERIMA','TOLAK']}
+ const it=shuf(q.opts.map(([t,c])=>({t,c})));
+ area.innerHTML=`<p class="hint">Bisa lebih dari satu. Tap lagi untuk batal.</p>`+it.map(o=>`<button type="button" class="opt" data-c="${o.c}"><span class="l">＋</span>${esc(o.t)}</button>`).join('')+chk('Cek jawaban');
+ area.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{if(S.done)return;b.classList.toggle('sel');b.firstChild.textContent=b.classList.contains('sel')?'✓':'＋'});
+ $('chk').onclick=()=>{if(S.done)return;const bs=[...area.querySelectorAll('.opt')];
+  if(!bs.some(b=>b.classList.contains('sel')))return toast('Pilih minimal satu dulu.');
+  finish(bs.every(b=>b.classList.contains('sel')===(b.dataset.c==='1')))}}
 function rJudge(q){
- S.sel={};area.className=q.neutral?'neu':'';
- area.innerHTML=`<p class="hint">Tentukan setiap item. Pilihan bisa diganti sebelum CEK.</p>`+q.items.map((x,i)=>`<div class="row" data-i="${i}"><div class="rt">${esc(x.t)}</div><div class="jb"><button type="button" class="jbtn t" data-v="T">${q.lab?'':'✓ '}${LB(q)[0]}</button><button type="button" class="jbtn x" data-v="X">${q.lab?'':'✕ '}${LB(q)[1]}</button></div></div>`).join('')+checkBtn('CEK KEPUTUSAN');
- area.querySelectorAll('.jbtn').forEach(b=>b.onclick=()=>{if(S.done)return;click();const r=b.closest('.row'),i=+r.dataset.i;S.sel[i]=b.dataset.v;
-  r.querySelectorAll('.jbtn').forEach(x=>x.classList.toggle('on',x===b))});
- $('chk').onclick=()=>{if(S.done)return;
-  if(Object.keys(S.sel).length<q.items.length){toast('Putuskan semua item dulu.');return}
-  finish(q.items.every((x,i)=>S.sel[i]===x.a))};
-}
+ cur.sel={};
+ area.innerHTML=`<p class="hint">Tap pilihan untuk tiap pernyataan. Bisa diganti sebelum dicek.</p>`+q.items.map((x,i)=>`<div class="row" data-i="${i}"><div>${esc(x[0])}</div><div class="jb"><button type="button" class="jbtn" data-v="0">${q.lab[0]}</button><button type="button" class="jbtn" data-v="1">${q.lab[1]}</button></div></div>`).join('')+chk('Cek jawaban');
+ area.querySelectorAll('.jbtn').forEach(b=>b.onclick=()=>{if(S.done)return;const r=b.closest('.row');cur.sel[r.dataset.i]=+b.dataset.v;r.querySelectorAll('.jbtn').forEach(x=>x.classList.toggle('on',x===b))});
+ $('chk').onclick=()=>{if(S.done)return;if(Object.keys(cur.sel).length<q.items.length)return toast('Jawab semua pernyataan dulu.');
+  finish(q.items.every((x,i)=>cur.sel[i]===x[1]))}}
 function rBlank(q){
- area.innerHTML=`<p class="hint">Pilih jawaban pada setiap kotak isian.</p><div class="sent">${q.parts.map(p=>typeof p==='number'?`<select data-k="${p}" aria-label="Isian ${p+1}"><option value="">…pilih…</option>${q.sel[p].o.map(o=>`<option>${esc(o)}</option>`).join('')}</select>`:esc(p)).join('')}</div>`+checkBtn('CEK ISIAN');
- $('chk').onclick=()=>{if(S.done)return;
-  const ss=[...area.querySelectorAll('select')];
-  if(ss.some(s=>!s.value)){toast('Isi semua kotak dulu.');return}
-  finish(ss.every(s=>s.value===q.sel[+s.dataset.k].a))};
-}
+ area.innerHTML=`<div class="sent">${q.parts.map(p=>typeof p==='number'?`<select data-k="${p}"><option value="">pilih</option>${q.sel[p].o.map(o=>`<option>${esc(o)}</option>`).join('')}</select>`:esc(p)).join('')}</div>`+chk('Cek isian');
+ $('chk').onclick=()=>{if(S.done)return;const ss=[...area.querySelectorAll('select')];
+  if(ss.some(s=>!s.value))return toast('Isi semua kotak dulu.');
+  finish(ss.every(s=>s.value===q.sel[+s.dataset.k].a))}}
 function rNum(q){
- area.innerHTML=`<p class="hint">Ketik angka saja, tanpa satuan.</p><div class="scene" style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">${esc(q.lbl||'Jawaban:')} <input id="ni" class="numin" type="number" inputmode="decimal" min="0" aria-label="Jawaban angka"> ${esc(q.unit)}</div>`+checkBtn('CEK HITUNGAN');
- const go=()=>{if(S.done)return;const v=$('ni').value;if(v===''){toast('Isi angkanya dulu.');return}finish(Number(v)===q.ans)};
- $('chk').onclick=go;$('ni').addEventListener('keydown',e=>{if(e.key==='Enter')go()});
-}
+ area.innerHTML=`<div class="sc" style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">Lewat <input id="ni" class="numin" type="number" inputmode="numeric" min="0"> ${esc(q.unit)}</div>`+chk('Cek hitungan');
+ const go=()=>{if(S.done)return;const v=$('ni').value;if(v==='')return toast('Isi angkanya dulu.');finish(Number(v)===q.ans)};
+ $('chk').onclick=go;$('ni').addEventListener('keydown',e=>{if(e.key==='Enter')go()})}
+function rOrder(q){
+ cur.pick=[];const pool=shuf(q.items.map((t,i)=>({t,i})));
+ const draw=()=>{
+  area.innerHTML=`<p class="hint">Tap kartu sesuai urutan. Tap kotak yang terisi untuk melepasnya.</p>`+
+   q.items.map((_,k)=>{const p=cur.pick[k];return `<button type="button" class="slot ${p!==undefined?'full':''}" data-k="${k}"><i>${k+1}</i>${p!==undefined?esc(q.items[p]):'…'}${k===0?`<em>${q.ends[0]}</em>`:k===q.items.length-1?`<em>${q.ends[1]}</em>`:''}</button>`}).join('')+
+   `<div class="pool">${pool.map(o=>`<button type="button" class="pc" data-i="${o.i}" ${cur.pick.includes(o.i)?'disabled':''}>${esc(o.t)}</button>`).join('')}</div>`+chk('Cek urutan');
+  $('chk').disabled=cur.pick.length<q.items.length;
+  area.querySelectorAll('.pc').forEach(b=>b.onclick=()=>{if(S.done)return;cur.pick.push(+b.dataset.i);draw()});
+  area.querySelectorAll('.slot').forEach(b=>b.onclick=()=>{if(S.done)return;const k=+b.dataset.k;if(k<cur.pick.length){cur.pick.splice(k,1);draw()}});
+  $('chk').onclick=()=>{if(S.done||cur.pick.length<q.items.length)return;finish(cur.pick.every((v,k)=>v===k))}};
+ draw()}
 
-// ===== JAWABAN =====
 function reveal(q){
- if(q.type==='mc')area.querySelectorAll('.opt').forEach(b=>{b.disabled=true;const i=+b.dataset.i;if(i===q.a)b.classList.add('correct');else if(i===S.sel)b.classList.add('wrong')});
- else if(q.type==='multi')area.querySelectorAll('.opt').forEach(b=>{b.disabled=true;const c=b.dataset.c==='1',s=b.classList.contains('sel');b.classList.remove('sel');if(c)b.classList.add('correct');else if(s)b.classList.add('wrong')});
- else if(q.type==='judge')area.querySelectorAll('.row').forEach(r=>{const i=+r.dataset.i,ok=S.sel[i]===q.items[i].a;r.classList.add(ok?'ok':'bad');r.querySelectorAll('button').forEach(b=>{b.disabled=true;b.classList.toggle('on',b.dataset.v===q.items[i].a)});
-  if(!ok){const n=document.createElement('div');n.style.cssText='width:100%;font-size:.85rem';n.textContent='Seharusnya: '+(q.items[i].a==='T'?LB(q)[0]:LB(q)[1]);r.appendChild(n)}});
- else if(q.type==='blank')area.querySelectorAll('select').forEach(s=>{s.disabled=true;const a=q.sel[+s.dataset.k].a;if(s.value===a)s.classList.add('ok');else{s.classList.add('bad');s.insertAdjacentHTML('afterend',`<b>(${esc(a)})</b>`)}});
- else if(q.type==='num'){$('ni').disabled=true;if(Number($('ni').value)!==q.ans)$('ni').insertAdjacentHTML('afterend',`<b>→ ${q.ans}</b>`)}
- area.querySelectorAll('button').forEach(b=>b.disabled=true);
-}
-function finish(correct,timeout=false){
- if(S.done)return;S.done=true;clearInterval(S.tid);const q=Q[S.i];
- if(correct){S.score+=10;good()}else{S.lives=Math.max(0,S.lives-1);bad()}
- drawLives();reveal(q);
- $('fb').innerHTML=`<div class="card" style="background:${correct?'#dcfce7':'#fee2e2'};box-shadow:4px 4px 0 var(--ink)">
-  <div style="font-size:1.2rem;font-weight:700">${correct?'✅ BENAR!':timeout?'⏰ WAKTU HABIS':'❌ BELUM TEPAT'}</div>
-  <div style="margin-top:8px;font-size:.95rem"><b>Pembahasan:</b> ${esc(q.exp)}</div>
-  ${correct?'':`<div class="badge" style="margin-top:10px;background:#fef9c3">❤️ Nyawa tersisa: ${S.lives}</div>`}</div>`;
- S.sum.push({n:S.i+1,title:q.title,correct,exp:q.exp});
- const last=S.i===Q.length-1||S.lives<=0;
- $('nextBtn').textContent=last?'LIHAT HASIL 🏆':'SOAL BERIKUTNYA ➜';setNext(true);header();
- $('nextBtn').scrollIntoView({behavior:'smooth',block:'center'});
-}
+ if(q.type==='mc')area.querySelectorAll('.opt').forEach(b=>{const i=+b.dataset.i;if(i===q.a)b.classList.add('correct');else if(i===cur.sel)b.classList.add('wrong')});
+ else if(q.type==='multi')area.querySelectorAll('.opt').forEach(b=>{const c=b.dataset.c==='1',s=b.classList.contains('sel');b.classList.remove('sel');if(c)b.classList.add('correct');else if(s)b.classList.add('wrong')});
+ else if(q.type==='judge')area.querySelectorAll('.row').forEach(r=>{const i=+r.dataset.i,ok=cur.sel[i]===q.items[i][1];r.classList.add(ok?'ok':'bad');if(!ok)r.insertAdjacentHTML('beforeend',`<small>Jawaban benar: ${q.lab[q.items[i][1]]}</small>`)});
+ else if(q.type==='blank')area.querySelectorAll('select').forEach(s=>{const a=q.sel[+s.dataset.k].a;if(s.value===a)s.classList.add('ok');else{s.classList.add('bad');s.insertAdjacentHTML('afterend',`<b>(${esc(a)})</b>`)}});
+ else if(q.type==='num'){if(Number($('ni').value)!==q.ans)$('ni').insertAdjacentHTML('afterend',`<b>Jawaban: ${q.ans}</b>`)}
+ else if(q.type==='order'){area.querySelectorAll('.slot').forEach((s,k)=>{const ok=cur.pick[k]===k;s.classList.add(ok?'ok':'bad');if(!ok)s.insertAdjacentHTML('beforeend',`<small style="display:block;width:100%">Seharusnya: ${esc(q.items[k])}</small>`)});area.querySelector('.pool').remove()}
+ area.querySelectorAll('button,select,input').forEach(b=>b.disabled=true);
+ const c=$('chk');if(c)c.remove()}
 
-// ===== FLOW =====
-function reset(){Q=shuffle(BASE);Object.assign(S,{i:0,score:0,lives:MAXLIVES,sum:[],done:false})}
-$('startBtn').onclick=()=>{
- if(!$('nameIn').value.trim()||!$('nikIn').value.trim()){toast('Isi Nama dan NIK terlebih dahulu.');return}
- initAudio();click();reset();$('topbar').classList.remove('hidden');show('quizScreen');render()};
-$('nextBtn').onclick=()=>{
- if(!S.done)return;
- if(S.lives<=0||S.i===Q.length-1){result();return}
- click();S.i++;render();window.scrollTo({top:0,behavior:'smooth'})};
-$('giveUp').onclick=()=>{
- clearInterval(S.tid);
- if(!confirm('Yakin ingin menyerah? Quest diulang dari awal dan skor serta nyawa di-reset.')){if(!S.done)startTimer(Math.max(S.timer,5));return}
- reset();show('quizScreen');render()};
-$('restart').onclick=()=>{reset();$('topbar').classList.remove('hidden');show('quizScreen');render()};
+function finish(ok){
+ if(S.done)return;S.done=true;const q=BANK[S.i];
+ let bonus=0;
+ if(ok){S.streak++;bonus=Math.min(S.streak-1,3)*2;S.score+=10+bonus;S.ok++;confetti();navigator.vibrate&&navigator.vibrate(30)}else S.streak=0;
+ S.res[S.i]={ok,title:q.title,exp:q.exp};
+ reveal(q);hud();
+ $('fb').innerHTML=`<div class="fb ${ok?'ok':'no'}" tabindex="-1"><h3>${ok?'Mantap, benar! +'+(10+bonus)+(bonus?' (combo)':''):'Belum tepat, ini yang benar:'}</h3><div>${esc(q.exp)}</div></div>`;
+ $('nextBtn').disabled=false;
+ setTimeout(()=>$('fb').scrollIntoView({behavior:'smooth',block:'center'}),150)}
+
+function start(){S={i:0,ok:0,score:0,streak:0,done:false,res:[]};$('hud').classList.remove('hidden');show('quizS');render()}
+$('startBtn').onclick=()=>{if(!$('nameIn').value.trim()||!$('nikIn').value.trim())return toast('Isi nama dan NIK dulu ya.');start()};
+$('nextBtn').onclick=()=>{if(!S.done)return;if(S.i>=BANK.length-1)return result();S.i++;render()};
+$('again').onclick=start;
 
 function result(){
- clearInterval(S.tid);show('resultScreen');
- const max=Q.length*10,p=Math.round(S.score/max*100),ok=p>=70;
- $('rScore').textContent=`${S.score}/${max}`;$('rPct').textContent=p+'%';
- $('rEmoji').textContent=ok?'🏆':'🥲';
- $('rTitle').textContent=ok?'MISSION BERHASIL!':'BELUM LULUS';
- $('rSub').textContent=(ok?'Keren! ':'')+$('nameIn').value.trim()+(ok?', penanganan daging sapimu sudah siap di lapangan.':', jangan berhenti di sini. Pelajari lagi poin yang masih keliru lalu coba lagi.');
- $('sum').innerHTML=S.sum.map(s=>`<div style="padding:12px;margin-bottom:8px;border:4px solid ${s.correct?'#4ade80':'#fca5a5'};border-radius:14px;background:${s.correct?'#dcfce7':'#fef2f2'}">
-  <div style="font-weight:700">${s.correct?'✅':'❌'} Q${s.n} — ${esc(s.title)}</div>
-  <div style="font-size:.8rem;margin-top:4px;opacity:.85">${esc(s.exp)}</div></div>`).join('');
- ok?win():bad();
-}
+ $('hud').classList.add('hidden');show('resS');
+ const p=Math.round(S.ok/BANK.length*100);
+ $('rOk').textContent=`${S.ok}/${BANK.length}`;$('rSc').textContent=S.score;
+ const [em,t]=p>=90?['🏆','Master Butcher!']:p>=70?['🥩','Butcher Handal!']:p>=40?['🔪','Butcher Magang']:['📖','Yuk, belajar lagi'];
+ $('rEm').textContent=em;$('rT').textContent=t;
+ $('rSub').textContent=`${$('nameIn').value.trim()}, kamu menjawab benar ${p}% soal. `+(p>=70?'Siap praktik di lapangan!':'Baca rangkuman di bawah lalu coba lagi untuk naik level.');
+ $('sum').innerHTML=S.res.map((r,k)=>`<div class="rev ${r.ok?'ok':'no'}"><b>${r.ok?'✅':'❌'} ${k+1}. ${esc(r.title)}</b><br>${esc(r.exp)}</div>`).join('')}
 })();
 </script>
 </body>
